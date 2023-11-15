@@ -16,7 +16,7 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 	if (lineptr == NULL || bytes_read == NULL)
 	{
 		perror("Error: Incorrect argumnents to getline");
-		return (-1);
+		exit(1);
 	}
 	if (*lineptr == NULL)
 	{
@@ -24,7 +24,7 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 		if (*lineptr == NULL)
 		{
 			perror("Memory allocation error in getline function");
-			return (-1);
+			exit(1);
 		}
 		(*lineptr)[0] = '\0';
 		*bytes_read = read(fd, temp_buf, sizeof(temp_buf));
@@ -38,7 +38,7 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 				{
 					perror("Reallocation of memory failed");
 					free(*lineptr);
-					return (-1);
+					exit(1);
 				}
 			}
 			strncat(*lineptr, temp_buf, *bytes_read);
@@ -48,7 +48,10 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 			*bytes_read = read(fd, temp_buf, sizeof(temp_buf));
 		}
 	}
-	return (-1);
+	if (isatty(STDIN_FILENO))
+		return (-1);
+	else
+		return (1);
 }
 
 
@@ -141,14 +144,23 @@ const char *delim, size_t *tokCount)
 {
 	*tokCount = 0;
 	char **tokArray = NULL;
+	ssize_t bRead = 0;
 
 	commandLine_prompt();
-	if (_getline(&lineptr, bytes_read, STDIN_FILENO) == -1)
+	bRead = _getline(&lineptr, bytes_read, STDIN_FILENO);
+	if (bRead == -1)
 	{
-		perror("Error reading command line\n");
+		perror("End of line\n");
 		free(lineptr);
 		return (NULL);
 	}
+	if (bRead == 1)
+	{
+		perror("\n");
+		free(lineptr);
+		exit(1);
+	}
+
 	tokArray = createTokens(lineptr, delim, tokCount);
 	free(lineptr);
 	return (tokArray);

@@ -22,7 +22,7 @@ int main(void)
 		}
 		if (!(check_path(tokArray[0])))
 		{
-			cmd_path = handlePath(tokArray[0]
+			cmd_path = handlePath(tokArray[0]);
 			if (cmd_path != NULL)
 			{
 				runCommand(cmd_path, tokArray, tokCount);

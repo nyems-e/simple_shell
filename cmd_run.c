@@ -16,7 +16,7 @@ int runCommand(char *cmd, char **arrayTok, size_t tokCount)
 	if (pid == -1)
 	{
 		perror("Error: Failure to fork parent process\n");
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
 	{
