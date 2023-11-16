@@ -33,7 +33,8 @@ int main(void)
 				runCommand(cmd_path, tokArray, tokCount);
 				free(cmd_path);
 			}
-			func_free(tokArray, tokCount);
+			else
+				func_free(tokArray, tokCount);
 			continue;
 		}
 		if (access(tokArray[0], F_OK) == -1)
