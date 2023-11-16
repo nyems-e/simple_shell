@@ -165,7 +165,7 @@ const char *delim, size_t *tokCount)
  */
 void commandLine_prompt(void)
 {
-	char *prompt = "$ ";
+	char *prompt = "($) ";
 
 	if (isatty(STDIN_FILENO))
 	{
