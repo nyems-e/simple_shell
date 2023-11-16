@@ -13,11 +13,6 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 	char temp_buf[128];
 	size_t lineptr_Len = 0;
 
-	if (lineptr == NULL || bytes_read == NULL)
-	{
-		perror("Error: Incorrect argumnents to getline");
-		exit(1);
-	}
 	if (*lineptr == NULL)
 	{
 		*lineptr = (char *)malloc(sizeof(temp_buf));
