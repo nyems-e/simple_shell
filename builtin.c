@@ -23,7 +23,7 @@ void b_exit(char *status, char **cmd, size_t tokCount)
 
 /**
  * b_env - env
- * Return - int
+ * Return: int
  */
 
 int b_env(void)
