@@ -10,7 +10,8 @@
 
 int runCommand(char *cmd, char **arrayTok, size_t tokCount)
 {
-	int wstatus, x;
+	int wstatus;
+	size_t x;
 	pid_t pid = fork();
 
 	if (pid == -1)

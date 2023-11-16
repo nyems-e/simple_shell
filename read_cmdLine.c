@@ -142,10 +142,9 @@ size_t countTokens(char *line, const char *delim)
 char **read_Commandline(char *lineptr, ssize_t *bytes_read,
 const char *delim, size_t *tokCount)
 {
-	*tokCount = 0;
 	char **tokArray = NULL;
 	ssize_t bRead = 0;
-
+	*tokCount = 0;
 	commandLine_prompt();
 	bRead = _getline(&lineptr, bytes_read, STDIN_FILENO);
 	if (bRead == -1)
