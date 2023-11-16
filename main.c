@@ -20,6 +20,11 @@ int main(void)
 		{
 			break;
 		}
+		if (isBuiltin(tokArray, tokCount) == 1)
+		{
+			func_free(tokArray, tokCount);
+			continue;
+		}
 		if (!(check_path(tokArray[0])))
 		{
 			cmd_path = handlePath(tokArray[0]);
@@ -28,11 +33,13 @@ int main(void)
 				runCommand(cmd_path, tokArray, tokCount);
 				free(cmd_path);
 			}
+			func_free(tokArray, tokCount);
 			continue;
 		}
 		if (access(tokArray[0], F_OK) == -1)
 		{
-			printf("Command doesn't exist\n");
+			perror("Command doesn't exist\n");
+			func_free(tokArray, tokCount);
 			continue;
 		}
 		runCommand(tokArray[0], tokArray, tokCount);
