@@ -7,8 +7,10 @@
  * @tokCount: token count
  * Return: int
  */
-void b_exit(char *status, char **cmd, size_t tokCount)
+void b_exit(const char *status, char **cmd, size_t tokCount)
 {
+	int s;
+
 	if (status == NULL)
 	{
 		func_free(cmd, tokCount);
@@ -16,8 +18,9 @@ void b_exit(char *status, char **cmd, size_t tokCount)
 	}
 	else
 	{
+		s = atoi(status);
 		func_free(cmd, tokCount);
-		exit(atoi(status));
+		exit(s);
 	}
 }
 
