@@ -10,19 +10,19 @@
  */
 ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 {
-	char temp_buf[128];
+	char temp_buf[1024];
 	size_t lineptr_Len = 0;
 
 	if (*lineptr == NULL)
 	{
-		*lineptr = (char *)malloc(sizeof(temp_buf) + 1);
+		*lineptr = (char *)malloc(sizeof(temp_buf));
 		if (*lineptr == NULL)
 		{
 			perror("Memory allocation error in getline function");
 			exit(1);
 		}
 		(*lineptr)[0] = '\0';
-		*bytes_read = read(fd, temp_buf, sizeof(temp_buf));
+		*bytes_read = read(fd, temp_buf, sizeof(temp_buf) + 1);
 		while (*bytes_read > 0)
 		{
 			lineptr_Len += *bytes_read;
@@ -122,7 +122,7 @@ size_t countTokens(char *line, const char *delim)
 		tok = strtok(NULL, delim);
 	}
 	free(lineCpy);
-	/*  printf("tokCount:%zu\n", tokCount); */
+	/*printf("tokCount:%zu\n", tokCount); */
 	return (tokCount);
 }
 

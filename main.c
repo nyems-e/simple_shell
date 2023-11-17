@@ -2,12 +2,11 @@
 
 
 
-
 /**
  * main - main
  * @argc: argc
  * @argv: argv
- * Return:  1
+ * Return: 1
  */
 int main(__attribute((unused)) int argc, char *argv[])
 {
@@ -68,12 +67,14 @@ int main_helper(char **tokArray, size_t tokCount, size_t line_num, char *argv)
 			print_error(argv, line_num, tokArray[0]);
 			func_free(tokArray, tokCount);
 		}
+		return (1);
 	}
 	else if (access(tokArray[0], F_OK) == -1)
 	{
 		print_error(argv, line_num, tokArray[0]);
 		func_free(tokArray, tokCount);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
