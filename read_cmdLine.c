@@ -15,7 +15,7 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 
 	if (*lineptr == NULL)
 	{
-		*lineptr = (char *)malloc(sizeof(temp_buf));
+		*lineptr = (char *)malloc(sizeof(temp_buf) + 1);
 		if (*lineptr == NULL)
 		{
 			perror("Memory allocation error in getline function");
@@ -145,7 +145,7 @@ const char *delim, size_t *tokCount)
 	bRead = _getline(&lineptr, bytes_read, STDIN_FILENO);
 	if (bRead == -1)
 	{
-		perror("End of line\n");
+		/*perror("End of line\n");*/
 		free(lineptr);
 		return (NULL);
 	}
