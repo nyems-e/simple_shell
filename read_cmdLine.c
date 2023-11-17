@@ -46,7 +46,7 @@ ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 	if (isatty(STDIN_FILENO))
 		return (-1);
 	else
-		return (1);
+		return (-2);
 }
 
 
@@ -122,6 +122,7 @@ size_t countTokens(char *line, const char *delim)
 		tok = strtok(NULL, delim);
 	}
 	free(lineCpy);
+	/*  printf("tokCount:%zu\n", tokCount); */
 	return (tokCount);
 }
 
@@ -148,9 +149,10 @@ const char *delim, size_t *tokCount)
 		free(lineptr);
 		return (NULL);
 	}
-	if (bRead == 1)
+
+	if (bRead == -2) /*non interactive */
 	{
-		perror("\n");
+		/*perror("\n");*/
 		free(lineptr);
 		exit(1);
 	}

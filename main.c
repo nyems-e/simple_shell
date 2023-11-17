@@ -1,5 +1,8 @@
 #include "main.h"
 
+
+
+
 /**
  * main - main
  * Return:  1
@@ -17,8 +20,11 @@ int main(void)
 	{
 		tokArray = read_Commandline(lineptr, &bytes_read, delim, &tokCount);
 		if (tokArray == NULL)
-		{
 			break;
+		if (tokArray[0] == NULL)
+		{
+			free(tokArray);
+			continue;
 		}
 		if (isBuiltin(tokArray, tokCount) == 1)
 		{
@@ -34,13 +40,10 @@ int main(void)
 				free(cmd_path);
 			}
 			else
+			{
 				func_free(tokArray, tokCount);
-			continue;
-		}
-		if (access(tokArray[0], F_OK) == -1)
-		{
-			perror("Command doesn't exist\n");
-			func_free(tokArray, tokCount);
+				perror("Command doesn't Exist");
+			}
 			continue;
 		}
 		runCommand(tokArray[0], tokArray, tokCount);

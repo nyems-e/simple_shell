@@ -21,7 +21,7 @@ int runCommand(char *cmd, char **arrayTok, size_t tokCount)
 	}
 	if (pid == 0)
 	{
-		if (execve(cmd, arrayTok, NULL) == -1)
+		if (execve(cmd, arrayTok, environ) == -1)
 		{
 			perror("execve error: executable not found\n");
 			exit(EXIT_FAILURE);
