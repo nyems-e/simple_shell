@@ -24,7 +24,7 @@ int print_error(char *main_cmd, size_t line_num, char *sh_cmd)
 	if (error_str == NULL)
 	{
 		perror("print_error: malloc");
-		return (-1);
+		exit(1);
 	}
 	intToAscii(line_num, line_num_str);
 	strcpy(error_str, main_cmd);
@@ -45,7 +45,7 @@ int print_error(char *main_cmd, size_t line_num, char *sh_cmd)
 	}
 	perror(error_str);
 	free(error_str);
-	return (98);
+	return (1);
 }
 
 

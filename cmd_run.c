@@ -10,8 +10,7 @@
 
 int runCommand(char *cmd, char **arrayTok, size_t tokCount)
 {
-	int wstatus;
-	size_t x;
+	int wstatus, status;
 	pid_t pid = fork();
 
 	if (pid == -1)
@@ -34,10 +33,11 @@ int runCommand(char *cmd, char **arrayTok, size_t tokCount)
 			perror("Child process didn't terminate correctly\n");
 			exit(EXIT_FAILURE);
 		}
-		for (x = 0; x < tokCount; x++)
-			free(arrayTok[x]);
-		free(arrayTok);
+		func_free(arrayTok, tokCount);
+		if WIFEXITED(wstatus)
+			status = WEXITSTATUS(wstatus);
+		return (status);
 	}
-	return (1);
+	return (0);
 }
 

@@ -67,13 +67,13 @@ char **createTokens(char *line, const char *delim, size_t *tokCount)
 	if (lineCpy == NULL)
 	{
 		perror("Error duplicating string in countTokens");
-		return (NULL);
+		exit(1);
 	}
 	storeTokens = malloc(sizeof(char *) * (*tokCount + 1));
 	if (storeTokens == NULL)
 	{
 		perror("Error allocating memory for token array");
-		return (NULL);
+		exit(1);
 	}
 	token = strtok(lineCpy, delim);
 	for (i = 0; i < *tokCount; i++)
@@ -86,7 +86,7 @@ char **createTokens(char *line, const char *delim, size_t *tokCount)
 			free(storeTokens);
 			free(lineCpy);
 			perror("Error allocating memory for tokens in createTokens");
-			return (NULL);
+			exit(1);
 		}
 		token = strtok(NULL, delim);
 	}
@@ -113,7 +113,7 @@ size_t countTokens(char *line, const char *delim)
 	if (lineCpy == NULL)
 	{
 		perror("Error duplicating string in countTokens");
-		return (-1);
+		exit(1);
 	}
 	tok = strtok(lineCpy, delim);
 	while (tok != NULL)
@@ -154,7 +154,7 @@ const char *delim, size_t *tokCount)
 	{
 		/*perror("\n");*/
 		free(lineptr);
-		exit(1);
+		exit(0);
 	}
 
 	tokArray = createTokens(lineptr, delim, tokCount);

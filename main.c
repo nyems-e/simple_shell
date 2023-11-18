@@ -16,6 +16,7 @@ int main(__attribute((unused)) int argc, char *argv[])
 	char *delim = " \n";
 	char **tokArray = NULL;
 	ssize_t bytes_read = 0;
+	int status = 0;
 
 	while (1)
 	{
@@ -35,9 +36,11 @@ int main(__attribute((unused)) int argc, char *argv[])
 		}
 		if (main_helper(tokArray, tokCount, line_num, argv[0]) == 1)
 			continue;
-		runCommand(tokArray[0], tokArray, tokCount);
+		status = runCommand(tokArray[0], tokArray, tokCount);
+		if (status != 0)
+			exit(status);
 	}
-	return (1);
+	return (0);
 }
 
 
