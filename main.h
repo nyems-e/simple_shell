@@ -25,6 +25,9 @@ int print_error(char *main_cmd, size_t line_num, char *sh_cmd);
 int intToAscii(int num, char *string);
 int count_num(size_t line_num);
 int main_helper(char **tokArray, size_t tokCount, size_t line_num, char *argv);
+int nonInter_run(char **tokArray, size_t tokCount, char *argv, size_t line_num);
+size_t check_Array(char **tokArray);
+
 
 extern char **environ;
 #endif

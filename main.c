@@ -24,6 +24,11 @@ int main(__attribute((unused)) int argc, char *argv[])
 		tokArray = read_Commandline(lineptr, &bytes_read, delim, &tokCount);
 		if (tokArray == NULL)
 			break;
+		if (!isatty(STDIN_FILENO))
+		{
+			nonInter_run(tokArray, tokCount, argv[0], line_num);
+			continue;
+		}
 		if (tokArray[0] == NULL)
 		{
 			free(tokArray);

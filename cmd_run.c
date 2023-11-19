@@ -33,7 +33,8 @@ int runCommand(char *cmd, char **arrayTok, size_t tokCount)
 			perror("Child process didn't terminate correctly\n");
 			exit(EXIT_FAILURE);
 		}
-		func_free(arrayTok, tokCount);
+		if (isatty(STDIN_FILENO))
+			func_free(arrayTok, tokCount);
 		if WIFEXITED(wstatus)
 			status = WEXITSTATUS(wstatus);
 		return (status);

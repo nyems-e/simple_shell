@@ -10,7 +10,7 @@
  */
 ssize_t _getline(char **lineptr, ssize_t *bytes_read, int fd)
 {
-	char temp_buf[1024];
+	char temp_buf[2048];
 	size_t lineptr_Len = 0;
 
 	if (*lineptr == NULL)
