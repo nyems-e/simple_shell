@@ -26,10 +26,9 @@ size_t check_Array(char **tokArray)
  * @line_num: line number
  * Return: int
  */
-int nonInter_run(char **tokArray, size_t tokCount, char *argv, size_t line_num)
+int nonInter_run(char **tokArray, size_t tokCount, char *argv, size_t line_num, int *status)
 {
 	size_t count = check_Array(tokArray);
-	int status = 0;
 	size_t i = 0;
 	char *custom_arr[2];
 
@@ -45,13 +44,13 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv, size_t line_num)
 			func_free(tokArray, tokCount);
 			continue;
 		}
-		if (main_helper(tokArray, tokCount, line_num, argv) == 1)
+		if (main_helper(tokArray, tokCount, line_num, argv, status) == 1)
 			continue;
 		custom_arr[0] = tokArray[0];
 		custom_arr[1] = NULL;
-		status = runCommand(tokArray[i], custom_arr, tokCount);
-		if (status != 0)
-			exit(status);
+		*status = runCommand(tokArray[i], custom_arr, tokCount);
+		if (*status != 0)
+			exit(*status);
 		i++;
 	}
 	return (1);

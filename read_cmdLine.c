@@ -136,7 +136,7 @@ size_t countTokens(char *line, const char *delim)
  * Return: array of tokens
  */
 char **read_Commandline(char *lineptr, ssize_t *bytes_read,
-const char *delim, size_t *tokCount)
+const char *delim, size_t *tokCount, int status)
 {
 	char **tokArray = NULL;
 	ssize_t bRead = 0;
@@ -145,16 +145,17 @@ const char *delim, size_t *tokCount)
 	bRead = _getline(&lineptr, bytes_read, STDIN_FILENO);
 	if (bRead == -1)
 	{
-		/*perror("End of line\n");*/
+		/*perror("\n");*/
 		free(lineptr);
-		return (NULL);
+		/* return (NULL); */
+		exit(status);
 	}
 
 	if (bRead == -2) /*non interactive */
 	{
-		/*perror("\n");*/
+		perror("\n");
 		free(lineptr);
-		exit(0);
+		exit(status);
 	}
 
 	tokArray = createTokens(lineptr, delim, tokCount);

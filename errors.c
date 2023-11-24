@@ -45,7 +45,7 @@ int print_error(char *main_cmd, size_t line_num, char *sh_cmd)
 	}
 	perror(error_str);
 	free(error_str);
-	return (1);
+	return (127);
 }
 
 

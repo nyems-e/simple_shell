@@ -21,17 +21,19 @@ int main(__attribute((unused)) int argc, char *argv[])
 	while (1)
 	{
 		line_num++;
-		tokArray = read_Commandline(lineptr, &bytes_read, delim, &tokCount);
-		if (tokArray == NULL)
-			break;
+		tokArray = read_Commandline(lineptr, &bytes_read, delim, 
+				&tokCount, status);
+		/* if (tokArray == NULL)
+			break;*/
 		if (!isatty(STDIN_FILENO))
 		{
-			nonInter_run(tokArray, tokCount, argv[0], line_num);
+			nonInter_run(tokArray, tokCount, argv[0], line_num, &status);
 			continue;
 		}
 		if (tokArray[0] == NULL)
 		{
 			free(tokArray);
+			status = 0;
 			continue;
 		}
 		if (isBuiltin(tokArray, tokCount) == 1)
@@ -39,7 +41,7 @@ int main(__attribute((unused)) int argc, char *argv[])
 			func_free(tokArray, tokCount);
 			continue;
 		}
-		if (main_helper(tokArray, tokCount, line_num, argv[0]) == 1)
+		if (main_helper(tokArray, tokCount, line_num, argv[0], &status) == 1)
 			continue;
 		status = runCommand(tokArray[0], tokArray, tokCount);
 		if (status != 0)
@@ -58,7 +60,8 @@ int main(__attribute((unused)) int argc, char *argv[])
  * Return: int
  */
 
-int main_helper(char **tokArray, size_t tokCount, size_t line_num, char *argv)
+int main_helper(char **tokArray, size_t tokCount, size_t line_num, char *argv,
+		int *status)
 {
 	char *cmd_path = NULL;
 
@@ -67,19 +70,19 @@ int main_helper(char **tokArray, size_t tokCount, size_t line_num, char *argv)
 		cmd_path = handlePath(tokArray[0]);
 		if (cmd_path != NULL)
 		{
-			runCommand(cmd_path, tokArray, tokCount);
+			*status = runCommand(cmd_path, tokArray, tokCount);
 			free(cmd_path);
 		}
 		else
 		{
-			print_error(argv, line_num, tokArray[0]);
+			*status = print_error(argv, line_num, tokArray[0]);
 			func_free(tokArray, tokCount);
 		}
 		return (1);
 	}
 	else if (access(tokArray[0], F_OK) == -1)
 	{
-		print_error(argv, line_num, tokArray[0]);
+		*status = print_error(argv, line_num, tokArray[0]);
 		func_free(tokArray, tokCount);
 		return (1);
 	}
