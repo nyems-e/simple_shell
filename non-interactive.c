@@ -24,9 +24,11 @@ size_t check_Array(char **tokArray)
  * @tokCount: token count
  * @argv: argv
  * @line_num: line number
+ * @status: exit code
  * Return: int
  */
-int nonInter_run(char **tokArray, size_t tokCount, char *argv, size_t line_num, int *status)
+int nonInter_run(char **tokArray, size_t tokCount, char *argv,
+		size_t line_num, int *status)
 {
 	size_t count = check_Array(tokArray);
 	size_t i = 0;

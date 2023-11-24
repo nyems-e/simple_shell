@@ -133,6 +133,7 @@ size_t countTokens(char *line, const char *delim)
  * @bytes_read: bytes read
  * @delim: delimiter
  * @tokCount: token Count
+ * @status: exit code
  * Return: array of tokens
  */
 char **read_Commandline(char *lineptr, ssize_t *bytes_read,

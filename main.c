@@ -21,10 +21,8 @@ int main(__attribute((unused)) int argc, char *argv[])
 	while (1)
 	{
 		line_num++;
-		tokArray = read_Commandline(lineptr, &bytes_read, delim, 
+		tokArray = read_Commandline(lineptr, &bytes_read, delim,
 				&tokCount, status);
-		/* if (tokArray == NULL)
-			break;*/
 		if (!isatty(STDIN_FILENO))
 		{
 			nonInter_run(tokArray, tokCount, argv[0], line_num, &status);
@@ -57,6 +55,7 @@ int main(__attribute((unused)) int argc, char *argv[])
  * @tokCount: token count
  * @line_num: line number
  * @argv: argv
+ * @status: exit code
  * Return: int
  */
 
