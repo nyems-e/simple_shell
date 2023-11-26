@@ -23,16 +23,16 @@ int main(__attribute((unused)) int argc, char *argv[])
 		line_num++;
 		tokArray = read_Commandline(lineptr, &bytes_read, delim,
 				&tokCount, status);
-		if (!isatty(STDIN_FILENO))
-		{
-			nonInter_run(tokArray, tokCount, argv[0], line_num, &status);
-			continue; /* handle EOF */
-		}
 		if (tokArray[0] == NULL)
 		{
 			free(tokArray);
 			status = 0;
 			continue;
+		}
+		if (!isatty(STDIN_FILENO))
+		{
+			nonInter_run(tokArray, tokCount, argv[0], line_num, &status);
+			continue; /* handle EOF */
 		}
 		if (isBuiltin(tokArray, tokCount) == 1)
 		{

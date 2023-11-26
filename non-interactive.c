@@ -37,11 +37,6 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv,
 	while (i < count)
 	{
 		i++;
-		if (tokArray[0] == NULL)
-		{
-			free(tokArray);
-			continue;
-		}
 		if (isBuiltin(tokArray, tokCount) == 1)
 		{
 			func_free(tokArray, tokCount);
