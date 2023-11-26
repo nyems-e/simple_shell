@@ -52,10 +52,13 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv,
 		custom_arr[0] = tokArray[0];
 		custom_arr[1] = NULL;
 		*status = runCommand(tokArray[i - 1], custom_arr, tokCount);
-		func_free(tokArray, tokCount);
 		if (*status != 0)
+		{
+			func_free(tokArray, tokCount);
 			exit(*status);
+		}
 	}
+	func_free(tokArray, tokCount);
 	return (1);
 }
 
