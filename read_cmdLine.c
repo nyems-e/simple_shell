@@ -146,7 +146,7 @@ const char *delim, size_t *tokCount, int status)
 	bRead = _getline(&lineptr, bytes_read, STDIN_FILENO);
 	if (bRead == -1)
 	{
-		/* printf("\n"); */
+		printf("\n");
 		free(lineptr);
 		/* return (NULL); */
 		exit(status);
