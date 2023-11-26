@@ -36,6 +36,7 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv,
 
 	while (i < count)
 	{
+		i++;
 		if (tokArray[0] == NULL)
 		{
 			free(tokArray);
@@ -50,10 +51,9 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv,
 			continue;
 		custom_arr[0] = tokArray[0];
 		custom_arr[1] = NULL;
-		*status = runCommand(tokArray[i], custom_arr, tokCount);
+		*status = runCommand(tokArray[i - 1], custom_arr, tokCount);
 		if (*status != 0)
 			exit(*status);
-		i++;
 	}
 	return (1);
 }
