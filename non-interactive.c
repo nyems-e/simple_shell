@@ -32,6 +32,7 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv,
 {
 	size_t count = check_Array(tokArray);
 	size_t i = 0;
+	char *custom_arr[2];
 
 	while (i < count)
 	{
@@ -48,7 +49,14 @@ int nonInter_run(char **tokArray, size_t tokCount, char *argv,
 		}
 		if (main_helper(tokArray, tokCount, line_num, argv, status) == 1)
 			continue;
-		*status = runCommand(tokArray[i - 1], tokArray, tokCount);
+		if (count > 1)
+		{
+			custom_arr[0] = tokArray[0];
+			custom_arr[1] = NULL;
+			*status = runCommand(tokArray[i - 1], custom_arr, tokCount);
+		}
+		else
+			*status = runCommand(tokArray[i - 1], tokArray, tokCount);
 		if (*status != 0)
 		{
 			func_free(tokArray, tokCount);
